@@ -1,0 +1,22 @@
+.profile__add-button {
+  width: 150px;
+  height: 50px;
+  background-image: url("../../../images/add_button-small.svg");
+  background-repeat:no-repeat;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  background-color: inherit;
+  border: 0;
+}
+
+.profile__add-button:hover {
+  opacity: 0.6;
+}
+
+@media (max-width: 768px) {
+  .profile__add-button {
+    margin-top: 32px;
+    width: 282px;
+    background-image: url("../../../images/add_button-large.svg");
+  }
+}
