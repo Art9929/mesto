@@ -8,6 +8,7 @@
   border: 0;
   padding: 0;
   transition: opacity 0.3s ease;
+  background-color: transparent;
 }
 
 .group__vector:hover {

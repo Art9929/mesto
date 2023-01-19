@@ -1,15 +1,15 @@
-.info__title {
+.profile__title {
   color: #fff;
   font-weight: 500;
   font-size: 42px;
   line-height: 48px;
   margin: 0;
-  word-break: break-all;
 }
 
-@media (max-width: 850px) {
-  .info__title {
+@media (max-width: 768px) {
+  .profile__title {
     font-size: 27px;
     line-height: 33px;
+    max-width: 220px;
   }
 }
