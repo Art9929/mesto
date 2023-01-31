@@ -23,6 +23,7 @@
     <section class="elements">
       <ul class="group elements__group">
         <li class="group__element">
+          <button aria-label="Корзина" type="button" class="group__trash"></button>
           <img lang="ru" src="./images/karachevsk.jpg" alt="Карачаевск" class="group__image">
           <div class="group__figcaption">
             <h3 class="block group__title">Карачаевск</h3>
@@ -77,6 +78,17 @@
         <input name="name" type="text" placeholder="Введите имя" class="popup__input popup__input_text_name">
         <input name="job" type="text" placeholder="Введите хобби" class="popup__input popup__input_text_job">
         <button type="submit" class="popup__button">Сохранить</button>
+      </form>
+      <button aria-label="Закрыть" type="button" class="popup__close"></button>
+    </div>
+  </div>
+  <div class="popup">
+    <div class="popup__container">
+      <h3 class="popup__title">Новое место</h3>
+      <form method="post" name="popup-form" action="#" class="popup__form">
+        <input name="name" type="text" placeholder="Название" class="popup__input popup__input_text_name">
+        <input name="job" type="text" placeholder="Ссылка на картинку" class="popup__input popup__input_text_job">
+        <button type="submit" class="popup__button">Создать</button>
       </form>
       <button aria-label="Закрыть" type="button" class="popup__close"></button>
     </div>

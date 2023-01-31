@@ -26,10 +26,12 @@
 /* group */
 @import url(../blocks/group/group.css);
 @import url(../blocks/group/__element/group__element.css);
+@import url(../blocks/group/__trash/group__trash.css);
 @import url(../blocks/group/__image/group__image.css);
 @import url(../blocks/group/__figcaption/group__figcaption.css);
 @import url(../blocks/group/__title/group__title.css);
 @import url(../blocks/group/__vector/group__vector.css);
+@import url(../blocks/group/__vector/_active/group__vector_active.css);
 
 /* block */
 @import url(../blocks/block/block.css);
