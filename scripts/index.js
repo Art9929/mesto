@@ -109,13 +109,13 @@ function createCard(item) {
   // Попап Картинки
   card.querySelector(".group__image").addEventListener("click", () => {
     popupImgWindow.classList.add("popup_opened");
-    const popupImgOpen = popupImgWindow.querySelector(".group__image");
-    const textImg = popupImgWindow.querySelector(".group__title");
+    const popupImgOpen = popupImgWindow.querySelector(".popup__image");
+    const textImg = popupImgWindow.querySelector(".popup__title");
     popupImgOpen.src = item.link;
     popupImgOpen.alt = item.name;
-    popupImgOpen.classList.add("group__image_active");
+    popupImgOpen.classList.add("popup__image_active");
     textImg.textContent = item.name;
-    textImg.classList.add("group__title_active");
+    textImg.classList.add("popup__title_active");
     popupBtnClose[2].addEventListener("click", closePopup);
   });
 

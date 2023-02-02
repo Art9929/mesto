@@ -28,10 +28,8 @@
 @import url(../blocks/group/__element/group__element.css);
 @import url(../blocks/group/__trash/group__trash.css);
 @import url(../blocks/group/__image/group__image.css);
-@import url(../blocks/group/__image/_active/group__image_active.css);
 @import url(../blocks/group/__figcaption/group__figcaption.css);
 @import url(../blocks/group/__title/group__title.css);
-@import url(../blocks/group/__title/_active/group__title_active.css);
 @import url(../blocks/group/__vector/group__vector.css);
 @import url(../blocks/group/__vector/_active/group__vector_active.css);
 
@@ -52,4 +50,6 @@
 @import url(../blocks/popup/__input/popup__input.css);
 @import url(../blocks/popup/__button/popup__button.css);
 @import url(../blocks/popup/__close/popup__close.css);
+@import url(../blocks/popup/__image/_active/popup__image_active.css);
+@import url(../blocks/popup/__title/_active/popup__title_active.css);
 @import url(../blocks/popup/_transition/popup__transition.css);
