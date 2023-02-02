@@ -112,6 +112,7 @@ function createCard(item) {
     const popupImgOpen = popupImgWindow.querySelector(".group__image");
     const textImg = popupImgWindow.querySelector(".group__title");
     popupImgOpen.src = item.link;
+    popupImgOpen.alt = item.name;
     popupImgOpen.classList.add("group__image_active");
     textImg.textContent = item.name;
     textImg.classList.add("group__title_active");
