@@ -1,0 +1,7 @@
+.group__image_active {
+  object-fit: contain;
+  cursor: auto;
+  height: auto;
+  max-width: 75vw;
+  max-height: 75vh;
+}
