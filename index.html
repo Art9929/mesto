@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="pages/index.css">
+  <script src="scripts/index.js" defer></script>
   <title>Mesto</title>
 </head>
 <body class="page">
@@ -21,56 +22,13 @@
       <button aria-label="Добавить место" type="button" class="profile__add-button"></button>
     </section>
     <section class="elements">
-      <ul class="group elements__group">
-        <li class="group__element">
-          <img lang="ru" src="./images/karachevsk.jpg" alt="Карачаевск" class="group__image">
-          <div class="group__figcaption">
-            <h3 class="block group__title">Карачаевск</h3>
-            <button aria-label="Нравится" type="button" class="group__vector"></button>
-          </div>
-        </li>
-        <li class="group__element">
-          <img lang="ru" src="./images/elbrus.jpg" alt="Гора Эльбрус" class="group__image">
-          <div class="group__figcaption">
-            <h3 class="block group__title">Гора Эльбрус</h3>
-            <button aria-label="Нравится" type="button" class="group__vector"></button>
-          </div>
-        </li>
-        <li class="group__element">
-          <img lang="ru" src="./images/dombai.jpg" alt="Домбай" class="group__image">
-          <div class="group__figcaption">
-            <h3 class="block group__title">Домбай</h3>
-            <button aria-label="Нравится" type="button" class="group__vector"></button>
-          </div>
-        </li>
-        <li class="group__element">
-          <img lang="ru" src="./images/elbrus.jpg" alt="Гора Эльбрус" class="group__image">
-          <div class="group__figcaption">
-            <h3 class="block group__title">Гора Эльбрус</h3>
-            <button aria-label="Нравится" type="button" class="group__vector"></button>
-          </div>
-        </li>
-        <li class="group__element">
-          <img lang="ru" src="./images/dombai.jpg" alt="Домбай" class="group__image">
-          <div class="group__figcaption">
-            <h3 class="block group__title">Домбай</h3>
-            <button aria-label="Нравится" type="button" class="group__vector"></button>
-          </div>
-        </li>
-        <li class="group__element">
-          <img lang="ru" src="./images/karachevsk.jpg" alt="Карачаевск" class="group__image">
-          <div class="group__figcaption">
-            <h3 class="block group__title">Карачаево-Черкесия</h3>
-            <button aria-label="Нравится" type="button" class="group__vector"></button>
-          </div>
-        </li>
-      </ul>
+      <ul class="group elements__group"></ul>
     </section>
   </main>
   <footer class="footer">
     <p class="footer__copyright">© 2023. Артем</p>
   </footer>
-  <div class="popup">
+  <div class="popup popup_edit">
     <div class="popup__container">
       <h3 class="popup__title">Редактировать профиль</h3>
       <form method="post" name="popup-form" action="#" class="popup__form">
@@ -81,6 +39,33 @@
       <button aria-label="Закрыть" type="button" class="popup__close"></button>
     </div>
   </div>
-  <script src="scripts/index.js"></script>
+  <div class="popup popup_add">
+    <div class="popup__container">
+      <h3 class="popup__title">Новое место</h3>
+      <form method="post" name="popup-form" action="#" class="popup__form">
+        <input name="name" type="text" placeholder="Название" class="popup__input popup__input_text_place">
+        <input name="job" type="text" placeholder="Ссылка на картинку" class="popup__input popup__input_text_url-img">
+        <button type="submit" class="popup__button">Создать</button>
+      </form>
+      <button aria-label="Закрыть" type="button" class="popup__close"></button>
+    </div>
+  </div>
+  <div class="popup popup_img">
+    <div class="popup__container_template_img">
+      <img lang="ru" src="" alt="" class="group__image">
+      <h3 class="block group__title"></h3>
+      <button aria-label="Закрыть" type="button" class="popup__close"></button>
+    </div>
+  </div>
+  <template id="card-template">
+    <li class="group__element">
+      <button aria-label="Корзина" type="button" class="group__trash"></button>
+      <img lang="ru" src="" alt="" class="group__image">
+      <div class="group__figcaption">
+        <h3 class="block group__title"></h3>
+        <button aria-label="Нравится" type="button" class="group__vector"></button>
+      </div>
+    </li>
+  </template>
 </body>
 </html>
