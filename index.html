@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="pages/index.css">
+  <script src="scripts/constants.js" defer></script>
   <script src="scripts/index.js" defer></script>
   <title>Mesto</title>
 </head>
@@ -31,9 +32,9 @@
   <div class="popup popup_edit">
     <div class="popup__container">
       <h3 class="popup__title">Редактировать профиль</h3>
-      <form method="post" name="popup-form" action="#" class="popup__form">
-        <input name="name" type="text" placeholder="Введите имя" class="popup__input popup__input_text_name">
-        <input name="job" type="text" placeholder="Введите хобби" class="popup__input popup__input_text_job">
+      <form method="post" name="popup-form" action="#" class="popup__form popup__form_template_edit">
+        <input name="name" type="text" placeholder="Введите имя" class="popup__input popup__input_text_name" required>
+        <input name="job" type="text" placeholder="Введите хобби" class="popup__input popup__input_text_job" required>
         <button type="submit" class="popup__button">Сохранить</button>
       </form>
       <button aria-label="Закрыть" type="button" class="popup__close"></button>
@@ -42,9 +43,9 @@
   <div class="popup popup_add">
     <div class="popup__container">
       <h3 class="popup__title">Новое место</h3>
-      <form method="post" name="popup-form" action="#" class="popup__form">
-        <input name="name" type="text" placeholder="Название" class="popup__input popup__input_text_place">
-        <input name="job" type="text" placeholder="Ссылка на картинку" class="popup__input popup__input_text_url-img">
+      <form method="post" name="popup-form" action="#" class="popup__form popup__form_template_add">
+        <input name="name_place" type="text" placeholder="Название" class="popup__input popup__input_text_place" required>
+        <input name="image_place" type="url" placeholder="Ссылка на картинку" class="popup__input popup__input_text_url-img" required>
         <button type="submit" class="popup__button">Создать</button>
       </form>
       <button aria-label="Закрыть" type="button" class="popup__close"></button>
@@ -52,8 +53,8 @@
   </div>
   <div class="popup popup_img">
     <div class="popup__container-img">
-      <img lang="ru" src="#" alt="#" class="popup__image">
-      <h3 class="block popup__title">#</h3>
+      <img lang="ru" src="#" alt="#" class="popup__image popup__image_active">
+      <h3 class="block popup__title popup__title_active">#</h3>
       <button aria-label="Закрыть" type="button" class="popup__close"></button>
     </div>
   </div>
