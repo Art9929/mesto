@@ -34,10 +34,10 @@
     <div class="popup__container">
       <h3 class="popup__title">Редактировать профиль</h3>
       <form method="post" name="popup-form" action="#" class="popup__form popup__form_template_edit" novalidate>
-        <input id="popup__input_text_name" name="name" type="text" placeholder="Введите имя" class="popup__input popup__input_text_name" minlength="2" maxlength="40" required>
-        <span class="popup__input_text_name-error"></span>
-        <input id="popup__input_text_job" name="job" type="text" placeholder="Введите хобби" class="popup__input popup__input_text_job" minlength="2" maxlength="200" required>
-        <span class="popup__input_text_job-error"></span>
+        <input id="name-input" name="name" type="text" placeholder="Введите имя" class="popup__input popup__input_text_name" minlength="2" maxlength="40" required>
+        <span class="popup__input-error name-input-error"></span>
+        <input id="job-input" name="job" type="text" placeholder="Введите хобби" class="popup__input popup__input_text_job" minlength="2" maxlength="200" required>
+        <span class="popup__input-error job-input-error"></span>
         <button type="submit" class="popup__button">Сохранить</button>
       </form>
       <button aria-label="Закрыть" type="button" class="popup__close"></button>
@@ -47,10 +47,10 @@
     <div class="popup__container">
       <h3 class="popup__title">Новое место</h3>
       <form method="post" name="popup-form" action="#" class="popup__form popup__form_template_add" novalidate>
-        <input id="popup__input_text_place" name="name_place" type="text" placeholder="Название" class="popup__input popup__input_text_place" minlength="2" maxlength="30" required>
-        <span class="popup__input_text_place-error"></span>
-        <input id="popup__input_text_url-img" name="image_place" type="url" placeholder="Ссылка на картинку" class="popup__input popup__input_text_url-img" required>
-        <span class="popup__input_text_url-img-error"></span>
+        <input id="name-place-input" name="name_place" type="text" placeholder="Название" class="popup__input popup__input_text_place" minlength="2" maxlength="30" required>
+        <span class="popup__input-error name-place-input-error"></span>
+        <input id="image-place-input" name="image_place" type="url" placeholder="Ссылка на картинку" class="popup__input popup__input_text_url-img" required>
+        <span class="popup__input-error image-place-input-error"></span>
         <button type="submit" class="popup__button">Создать</button>
       </form>
       <button aria-label="Закрыть" type="button" class="popup__close"></button>
