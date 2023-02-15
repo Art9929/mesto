@@ -1,0 +1,10 @@
+.popup__button_active {
+  cursor: pointer;
+  background: #000000;
+  color: #fff;
+  border: 0;
+}
+
+.popup__button_active:hover {
+  opacity: 0.8;
+}
