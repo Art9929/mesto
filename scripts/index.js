@@ -58,14 +58,10 @@ popupFormTemplateEdit.addEventListener("submit", () => {
 popupFormTemplateAdd.addEventListener("submit", (e) => {
   const newCardData = { name: placeInput.value,  link: urlImgInput.value };
   const card = createCard(newCardData);
-  const buttonAddElement = popupFormTemplateAdd.querySelector('.popup__button')
   // отображаем на странице
   groupCards.prepend(card);
-  // отключаем кнопку после добавления картинки
-  buttonAddElement.classList.add('popup__button_disabled');
-  buttonAddElement.setAttribute("disabled", "disabled");
 
-  e.target.reset();
+  e.target.reset(); // запускает событие reset, а оно запускает деактивацию в validate.js
   closePopup(popupAddWindow);
 });
 
@@ -127,7 +123,7 @@ popups.forEach((popup) => {
 })
 
 // Close Esc
-function closeByEscape(popup) {
+const closeByEscape = popup => {
   return function(evt) {
   if (evt.key === 'Escape') {
     closePopup(popup)
