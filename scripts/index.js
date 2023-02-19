@@ -26,12 +26,12 @@ const groupCards = document.querySelector(".group"); // ul
 // Functions
 const openPopup = popup => {
   popup.classList.add("popup_opened");
-  document.addEventListener('keydown', closeByEscape(popup));
+  document.addEventListener('keydown', closeByEscape);
 }
 
 const closePopup = popup => {
   popup.classList.remove("popup_opened");
-  document.removeEventListener('keydown', closeByEscape(popup));
+  document.removeEventListener('keydown', closeByEscape);
 }
 
 function openEditPopup() {
@@ -123,11 +123,11 @@ popups.forEach((popup) => {
 })
 
 // Close Esc
-const closeByEscape = popup => {
-  return function(evt) {
+const closeByEscape = evt => {
   if (evt.key === 'Escape') {
-    closePopup(popup)
-  }}
+    const openedPopup = document.querySelector('.popup_opened')
+    closePopup(openedPopup)
+  }
 }
 
 data(); // данные для попапа перед проверкой кнопки
