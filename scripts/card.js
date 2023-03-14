@@ -1,18 +1,19 @@
 export default class Card {
-  constructor(  initialCard, catdTemplate, openPopup ) {
+  constructor( initialCard, catdTemplate, openPopup, popupImgWindow, popupImgOpen, textImg ) {
     this._initialCard = initialCard;
     this._catdTemplate = catdTemplate;
-    this._openPopup = openPopup
+    this._openPopup = openPopup;
+    this._popupImgOpen = popupImgOpen;
+    this._textImg = textImg;
+    this._popupImgWindow = popupImgWindow;
   }
 
   _getTemplate() {
-      const cardElement = document
+    return document
         .querySelector(this._catdTemplate)
         .content
         .querySelector('.group__element')
         .cloneNode(true);
-
-      return cardElement;
   }
 
   createCard() {
@@ -37,14 +38,12 @@ export default class Card {
 
     // Попап Картинки
     image.addEventListener("click", () => {
-      const popupImgWindow = document.querySelector(".popup_template_img");
-      const popupImgOpen = popupImgWindow.querySelector(".popup__image");
-      const textImg = popupImgWindow.querySelector(".popup__title");
 
-      this._openPopup(popupImgWindow)
-      popupImgOpen.src = this._initialCard.link;
-      popupImgOpen.alt = this._initialCard.name;
-      textImg.textContent = this._initialCard.name;
+
+      this._openPopup(this._popupImgWindow)
+      this._popupImgOpen.src = this._initialCard.link;
+      this._popupImgOpen.alt = this._initialCard.name;
+      this._textImg.textContent = this._initialCard.name;
     });
     return this._card;
   }

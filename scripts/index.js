@@ -11,7 +11,6 @@ const popups = document.querySelectorAll(".popup");
 const popupEditWindow = document.querySelector(".popup_template_edit");
 const popupAddWindow = document.querySelector(".popup_template_add");
 
-
 const titleAutor = document.querySelector(".profile__title");
 const subtitleAutor = document.querySelector(".profile__subtitle");
 const nameInput = document.querySelector(".popup__input_text_name");
@@ -19,6 +18,10 @@ const jobInput = document.querySelector(".popup__input_text_job");
 
 const popupFormTemplateEdit = document.querySelector(".popup__form_template_edit");
 const popupFormTemplateAdd = document.querySelector(".popup__form_template_add");
+
+const popupImgWindow = document.querySelector(".popup_template_img");
+const popupImgOpen = popupImgWindow.querySelector(".popup__image");
+const textImg = popupImgWindow.querySelector(".popup__title");
 
 const placeInput = document.querySelector(".popup__input_text_place");
 const urlImgInput = document.querySelector(".popup__input_text_url-img");
@@ -39,18 +42,14 @@ const closePopup = popup => {
 }
 
 function openEditPopup() {
-  const formValidator = new FormValidator(config, popupEditWindow)
-  formValidator.enableValidation(); // class formValidator
   openPopup(popupEditWindow)
 }
 
 function openAddPopup() {
-  const formValidator = new FormValidator(config, popupAddWindow)
-  formValidator.enableValidation(); // class formValidator
   openPopup(popupAddWindow)
 }
 
-function data() {
+function createdData() {
   nameInput.value = titleAutor.textContent;
   jobInput.value = subtitleAutor.textContent;
 }
@@ -64,9 +63,8 @@ popupFormTemplateEdit.addEventListener("submit", () => {
 
 // Submit Add btn
 popupFormTemplateAdd.addEventListener("submit", (e) => {
-  const newCardData = { name: placeInput.value,  link: urlImgInput.value };
-  const card = new Card(newCardData, catdTemplate, openPopup);
-  const newCard = card.createCard();
+  const initialCard = { name: placeInput.value,  link: urlImgInput.value };
+  const newCard = renderTemplateCards(initialCard); // class Card
   // отображаем на странице
   groupCards.prepend(newCard);
 
@@ -77,11 +75,17 @@ popupFormTemplateAdd.addEventListener("submit", (e) => {
 // Template Cards
 function renderCards(initialCards) {
   const cards = initialCards.forEach((initialCard) => {
-    const card = new Card(initialCard, catdTemplate, openPopup);
+    const newCard = renderTemplateCards(initialCard);  // class Card
     // отображаем на странице
-    groupCards.append(card.createCard());
+    groupCards.append(newCard);
   });
+}
 
+// Class Card.js
+function renderTemplateCards(initialCard) {
+  const card = new Card(initialCard, catdTemplate, openPopup, popupImgWindow, popupImgOpen, textImg);
+  const newCard = card.createCard();
+  return newCard;
 }
 
 // Listener
@@ -110,8 +114,10 @@ const closeByEscape = evt => {
 }
 
 // Class
+const formValidatorAdd = new FormValidator(config, popupAddWindow)
+const formValidatorEdit = new FormValidator(config, popupEditWindow)
+formValidatorAdd.enableValidation(); // class formValidator
+formValidatorEdit.enableValidation(); // class formValidator
 
-
-data(); // данные для попапа перед проверкой кнопки
+createdData(); // данные для попапа перед проверкой кнопки
 renderCards(initialCards);
-
