@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mesto</title>
+</head>
+<body class="page">
+  <header class="header">
+    <div class="header__logo"></div>
+  </header>
+  <main class="main">
+    <section class="profile">
+      <img lang="ru" src="<%=require('./images/avatar.jpg')%>" alt="Аватар" class="profile__avatar">
+      <div class="profile__info">
+        <h1 class="block profile__title">Жак-Ив Кусто</h1>
+        <button aria-label="Редактировать" type="button" class="profile__edit-button"></button>
+        <p class="block profile__subtitle">Исследователь океана</p>
+      </div>
+      <button aria-label="Добавить место" type="button" class="profile__add-button"></button>
+    </section>
+    <section class="elements">
+      <ul class="group elements__group"></ul>
+    </section>
+  </main>
+  <footer class="footer">
+    <p class="footer__copyright">© 2023. Артем</p>
+  </footer>
+  <div class="popup popup_template_edit">
+    <div class="popup__container">
+      <h3 class="popup__title">Редактировать профиль</h3>
+      <form method="post" name="popup-form" action="#" class="popup__form popup__form_template_edit" novalidate>
+        <input id="name" name="name" type="text" placeholder="Введите имя" class="popup__input popup__input_text_name" minlength="2" maxlength="40" required>
+        <span class="popup__error name-error"></span>
+        <input id="job" name="job" type="text" placeholder="Введите хобби" class="popup__input popup__input_text_job" minlength="2" maxlength="200" required>
+        <span class="popup__error job-error"></span>
+        <button type="submit" class="popup__button">Сохранить</button>
+      </form>
+      <button aria-label="Закрыть" type="button" class="popup__close"></button>
+    </div>
+  </div>
+  <div class="popup popup_template_add">
+    <div class="popup__container">
+      <h3 class="popup__title">Новое место</h3>
+      <form method="post" name="popup-form" action="#" class="popup__form popup__form_template_add" novalidate>
+        <input id="name-place" name="name_place" type="text" placeholder="Название" class="popup__input popup__input_text_place" minlength="2" maxlength="30" required>
+        <span class="popup__error name-place-error"></span>
+        <input id="image-place" name="image_place" type="url" placeholder="Ссылка на картинку" class="popup__input popup__input_text_url-img" required>
+        <span class="popup__error image-place-error"></span>
+        <button type="submit" class="popup__button">Создать</button>
+      </form>
+      <button aria-label="Закрыть" type="button" class="popup__close"></button>
+    </div>
+  </div>
+  <div class="popup popup_template_img">
+    <div class="popup__container-img">
+      <img lang="ru" src="#" alt="#" class="popup__image popup__image_active">
+      <h3 class="block popup__title popup__title_active">#</h3>
+      <button aria-label="Закрыть" type="button" class="popup__close"></button>
+    </div>
+  </div>
+  <template id="card-template">
+    <li class="group__element">
+      <button aria-label="Корзина" type="button" class="group__trash"></button>
+      <img lang="ru" src="#" alt="#" class="group__image">
+      <div class="group__figcaption">
+        <h3 class="block group__title">#</h3>
+        <button aria-label="Нравится" type="button" class="group__vector"></button>
+      </div>
+    </li>
+  </template>
+</body>
+</html>
