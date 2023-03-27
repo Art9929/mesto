@@ -1,22 +1,27 @@
 import Popup from './Popup';
 
 export default class PopupWithForm extends Popup {
-  constructor(popup, { submitSlice }, popupFormTemplate ) {
+  constructor(popup, { submitCallback }) {
     super(popup);
-    this._submitSlice = submitSlice;
-    this._popupFormTemplate  = popupFormTemplate ;
+    this._popupFormTemplate  = this._popup.querySelector(".popup__form");
+    this._inputList = Array.from(this._popupFormTemplate.querySelectorAll(".popup__input"));
+    this._submitCallback = submitCallback;
   }
 
   _getInputValues() {
     // собираем данные всех полей формы.
-   this._submitSlice();
+    const inputValues = {};
+    this._inputList.forEach((input) => {
+      inputValues[input.name] = input.value;
+    });
+    return inputValues;
   }
 
   // Добавляем 3 обработчика на закрытие
   // Редактируем текст
   setEventListeners() {
       this._popupFormTemplate.addEventListener("submit", (evt) => {
-      this._getInputValues();
+      this._submitCallback(this._getInputValues());
       this.close(evt);
     })
 

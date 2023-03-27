@@ -11,8 +11,8 @@ export default class UserInfo {
     }
   }
 
-  setUserInfo(nameInput, jobInput) {
-    this._titleAutor.textContent = nameInput.value;
-    this._subtitleAutor.textContent = jobInput.value;
+  setUserInfo(obj) {
+    this._titleAutor.textContent = obj.name;
+    this._subtitleAutor.textContent = obj.job;
   }
 }

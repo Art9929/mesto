@@ -14,8 +14,6 @@ export const popupFormTemplateEdit = document.querySelector(".popup__form_templa
 export const popupFormTemplateAdd = document.querySelector(".popup__form_template_add");
 
 export const popupImgWindow = document.querySelector(".popup_template_img");
-export const popupImgOpen = popupImgWindow.querySelector(".popup__image");
-export const textImg = popupImgWindow.querySelector(".popup__title");
 
 export const placeInput = document.querySelector(".popup__input_text_place");
 export const urlImgInput = document.querySelector(".popup__input_text_url-img");
