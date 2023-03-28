@@ -7,7 +7,7 @@ export const popupAddWindow = document.querySelector(".popup_template_add");
 
 export const titleAutor = document.querySelector(".profile__title");
 export const subtitleAutor = document.querySelector(".profile__subtitle");
-export const nameInput = document.querySelector(".popup__input_text_name");
+export const titleInput = document.querySelector(".popup__input_text_name");
 export const jobInput = document.querySelector(".popup__input_text_job");
 
 export const popupFormTemplateEdit = document.querySelector(".popup__form_template_edit");
