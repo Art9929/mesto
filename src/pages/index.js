@@ -7,7 +7,7 @@ import {
   popupAddWindow,
   titleAutor,
   subtitleAutor,
-  nameInput,
+  titleInput,
   jobInput,
   popupFormTemplateEdit,
   popupFormTemplateAdd,
@@ -20,7 +20,7 @@ import {
   groupCards
 } from '../utils/selectors.js';
 import items from "../utils/constants.js"
-import config from "../components/config.js"
+import config from "../utils/config.js"
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
@@ -29,7 +29,7 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 
 // Данные при первом открытии
-nameInput.value = titleAutor.textContent;
+titleInput.value = titleAutor.textContent;
 jobInput.value = subtitleAutor.textContent;
 
 // Попап Картинки
@@ -70,15 +70,15 @@ formValidatorEdit.enableValidation(); // class formValidator
 formValidatorAdd.enableValidation(); // class formValidator
 
 // Listener
-const popupEdit = new PopupWithForm(".popup_template_edit", { submitCallback:  (obj) => userInfo.setUserInfo(obj)})
-const popupAdd = new PopupWithForm(".popup_template_add", { submitCallback });
+const popupEdit = new PopupWithForm(".popup_template_edit", { submitCallback:  (obj) => userInfo.setUserInfo(obj) })
+const popupAdd = new PopupWithForm(".popup_template_add", { submitCallback: (obj) => list.addItem(renderCard(obj)) })
 // Данные
 const userInfo = new UserInfo( titleAutor, subtitleAutor );
 
 popupEditBtnOpen.addEventListener("click", () => {
   // данные для попапа перед проверкой кнопки
   const data = userInfo.getUserInfo();
-  nameInput.value = data.titleAutor;
+  titleInput.value = data.titleAutor;
   jobInput.value = data.subtitleAutor;
   // Кнопка
   formValidatorEdit._toggleButtonState()
@@ -87,13 +87,6 @@ popupEditBtnOpen.addEventListener("click", () => {
 popupAddBtnOpen.addEventListener("click", () => {
   popupAdd.open()
 });
-
-// Загрузка картинки
-function submitCallback (obj) {
-  const item = { name: obj.name_place,  link: obj.image_place };
-  // отображаем на странице
-  groupCards.prepend(renderCard(item));
-}
 
 // Submit Edit btn
 popupEdit.setEventListeners();

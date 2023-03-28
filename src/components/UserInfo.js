@@ -12,7 +12,7 @@ export default class UserInfo {
   }
 
   setUserInfo(obj) {
-    this._titleAutor.textContent = obj.name;
+    this._titleAutor.textContent = obj.title;
     this._subtitleAutor.textContent = obj.job;
   }
 }
