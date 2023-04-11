@@ -25,9 +25,10 @@
 * данные любого поля ввода проверяются одной унифицированной функцией;
 
 Запуск:
-  1. npm i webpack --save-dev - установка webpack
-  2. npm run build - сборка
-  3. npm run dev - запуск сервера Вебпак / port-8080
+  1. npm run deploy - запуск deploy
+  2. npm i webpack --save-dev - установка webpack
+  3. npm run build - сборка
+  4. npm run dev - запуск сервера Вебпак / port-8080
 
 ----------------------
 ## Основной стек технологий:
