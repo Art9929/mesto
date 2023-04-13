@@ -31,23 +31,4 @@ export default class Popup {
             {  this.close() }
       })
   }
-
-// Сбор значиний в input
-  _getInputValues() {
-    // собираем данные всех полей формы.
-    const inputValues = {};
-    this._inputList.forEach((input) => {
-      inputValues[input.name] = input.value;
-    });
-    return inputValues;
-  }
-
-// Ожидание загрузки
-  _renderLoading (isLoading) {
-    if (isLoading) {
-      this._button.textContent = "Сохранение...";
-    } else {
-      this._button.textContent = "Создать";
-    }
-  }
 }
