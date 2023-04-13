@@ -17,7 +17,7 @@ import {
   textImg,
   // placeInput,
   // urlImgInput,
-  catdTemplate,
+  cardTemplate,
   avatar
 } from '../utils/selectors.js';
 // import items from "../utils/constants.js" // default cards
@@ -28,8 +28,6 @@ import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupDeleteCard from '../components/PopupDeleteCard';
-import PopupAvatar from '../components/PopupAvatar';
-import Likes from '../components/Likes.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 
@@ -44,28 +42,23 @@ const api = new Api({
 });
 // =============================================================
 
+let userId = null;
+
+Promise.all([                 //в Promise.all передаем массив промисов которые нужно выполнить
+api.profile(),
+api.getInitialCards() ])
+  .then(([profile, initialCards])=>{    //попадаем сюда, когда оба промиса будут выполнены, деструктурируем ответ
+  userId = profile._id;
+// Загрузка информации о себе
+  userInfo.setUserInfo(profile)
 // Карточки с сервера при открытии страницы
-api.getInitialCards()
-  .then((itemsApi) => {
-    listCards(itemsApi).renderItems();
-  })
-  .catch((err) => {
-    console.log(err); // выведем ошибку в консоль
-  });
+  list.renderItems(initialCards);
+})
+.catch((err)=>{  //попадаем сюда если один из промисов завершится ошибкой
+  console.log(err);
+ })
 
-// Данные с сервера при открытии страницы
-api.profile()
-  .then((res) => {
-    // Загрузка аватара
-    avatar.src = res.avatar;
-    // Загрузка input в edit
-    titleAutor.textContent = res.name;
-    subtitleAutor.textContent = res.about;
-    titleInput.value = res.name;
-    jobInput.value = res.about;
-  });
-
-// Валидация Форм
+ // Валидация Форм
 const formValidatorAdd = new FormValidator(config, popupAddWindow)
 const formValidatorEdit = new FormValidator(config, popupEditWindow)
 const formValidatorAvatar = new FormValidator(config, popupAvatarWindow)
@@ -73,52 +66,84 @@ formValidatorEdit.enableValidation(); // class formValidator
 formValidatorAdd.enableValidation(); // class formValidator
 formValidatorAvatar.enableValidation(); // class formValidator
 
-// Попап Картинки
-const popupImage = new PopupWithImage(".popup_template_img"); // Передаю селектор модального окна
-// Попап Удаления
-const popupDeleteCard = new PopupDeleteCard(".popup_template_trash",  {api: (item) => api.deleteCard(item)})
-// Лайки
-const changeLikes = new Likes({apiAddLike: (id, likes) => api.addLike(id, likes), apiDeleteLike: (id, likes) => api.deleteLike(id, likes)} )
-// Попапы Edit Add Avatar
-const popupEdit = new PopupWithForm(".popup_template_edit", { api: (item) => api.editProfile(item), submitCallback:  (obj) => userInfo.setUserInfo(obj) })
-const popupAdd = new PopupWithForm(".popup_template_add", { api: (item) => api.addNewCard(item), submitCallback: (obj) => listCards(obj).addItem(renderCard(obj)) })
-const popupAvatar = new PopupAvatar(".popup_template_avatar", avatar, {api: (item) => api.changeAvatar(item)})
+// Информация о пользователе
+const userInfo = new UserInfo( titleAutor, subtitleAutor, avatar ); // Данные для Edit
+// Попапы Edit, Add, Avatar, Картинки, Удаления
+const popupEdit = new PopupWithForm(".popup_template_edit")
+const popupAdd = new PopupWithForm(".popup_template_add")
+const popupAvatar = new PopupWithForm(".popup_template_avatar")
+const popupImage = new PopupWithImage(".popup_template_img");
+const popupDeleteCard = new PopupDeleteCard(".popup_template_trash")
+popupDeleteCard.setEventListeners();
 
 // card для рендеринга и submit
 const renderCard = (item) => {
   const card = new Card({
     item,
-    catdTemplate,
+    cardTemplate,
     popupImgWindow,
+    userId,
 
     // передаешь через стрелочную функцию,
     // вызываешь как функцию () => this._data(),
     // либо как ссылку this._data
     handleCardClick: () => popupImage.open(item),
-    handleDeleteClick: (templateCard) => popupDeleteCard.setEventListeners(item, templateCard),
-    handleLikesClick: (templateCard) => { changeLikes.changeLikes(item, templateCard) }
+
+    handleDeleteClick: (card) => {
+      popupDeleteCard.open();
+    // Удаление карточки
+      popupDeleteCard.data( () => {
+        api.deleteCard(item._id)
+        .then((res) => {
+          card.removeCard() // удаление с фронта
+          console.log(res); // Пост удалён! удаление с сервера
+          popupDeleteCard.close();
+        })
+        .catch((err) => {
+          console.log(err); // выведем ошибку в консоль
+        })
+      })
+    },
+
+    handleLikesClick: (templateCard, like) => {
+      const action = item.likes.some(function (likes) {
+        return likes._id === userId; // сравниваем с моим id
+    });
+      if (action === false) {
+      api.addLike(item._id, item.likes) // Добавляем Лайк
+        .then((likes) => {
+            like.classList.add("group__vector_active");
+            card.calculateLikes(templateCard, likes)
+        })
+        .catch((err) => {
+          console.log(err); // выведем ошибку в консоль
+        });
+    } else {
+      api.deleteLike(item._id, item.likes) // Удаляем Лайк
+        .then((likes) => {
+            like.classList.remove("group__vector_active");
+            card.calculateLikes(templateCard, likes)
+        })
+        .catch((err) => {
+          console.log(err); // выведем ошибку в консоль
+        });
+      }
+     }
   });
-  const newCard = card.createCard();
-  return newCard;
+  return card.createCard();
 }
 
 // РЕНДЕРИНГ КАРТОЧЕК
-const listCards = (itemsApi) => {
-  const list = new Section({
-    data: itemsApi,
-    renderer: (item) => {
-      list.addItem(renderCard(item));
-    }
-    }, ".group");
-
-    return list;
-}
+const list = new Section({
+  renderer: (item) => {
+    list.addItem(renderCard(item));
+  }
+  }, ".group");
 
 // Открытие попапа Edit btn
-const userInfo = new UserInfo( titleAutor, subtitleAutor ); // Данные для Edit
 popupEditBtnOpen.addEventListener("click", () => {
+const data = userInfo.getUserInfo();
   // данные для попапа перед проверкой кнопки
-  const data = userInfo.getUserInfo();
   titleInput.value = data.titleAutor;
   jobInput.value = data.subtitleAutor;
   // Кнопка
@@ -134,12 +159,35 @@ avatar.addEventListener("click", () => {
   popupAvatar.open()
 });
 
+
+// SETEVENTLISTENERS
 // Submit Edit btn
-popupEdit.setEventListeners();
+popupEdit.setEventListeners( {
+  api: (item) => api.editProfile(item)
+  .then((res) => {
+    // РЕНДЕРИНГ О СЕБЕ
+    userInfo.setUserInfo(res);
+  })
+});
+
 // Submit Add btn
-popupAdd.setEventListeners();
+popupAdd.setEventListeners({
+  api: (item) => api.addNewCard(item)
+  .then((res) => {
+    // РЕНДЕРИНГ КАРТОЧКИ
+    list.addItem(renderCard(res))
+  })
+});
+
+// Обработка и закрытие Попапа Аватарки
+popupAvatar.setEventListeners( {
+  api: (item) => api.changeAvatar(item)
+  .then((res) => {
+    avatar.src = res.avatar;
+  })
+});
+
 // Обработка и закрытие Попапа Картинки
 popupImage.setEventListeners();
-// Обработка и закрытие Попапа Аватарки
-popupAvatar.setEventListeners();
+
 

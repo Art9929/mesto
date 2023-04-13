@@ -21,4 +21,4 @@ export const placeInput = document.querySelector(".popup__input_text_place");
 export const urlImgInput = document.querySelector(".popup__input_text_url-img");
 
 // Create Template
-export const catdTemplate = "#card-template";
+export const cardTemplate = "#card-template";

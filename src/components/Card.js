@@ -1,8 +1,9 @@
 export default class Card {
-  constructor({item, catdTemplate, popupImgWindow, handleCardClick, handleDeleteClick, handleLikesClick}) {
+  constructor({item, cardTemplate, popupImgWindow, userId, handleCardClick, handleDeleteClick, handleLikesClick}) {
     this._item = item;
-    this._catdTemplate = catdTemplate;
+    this._cardTemplate = cardTemplate;
     this._popupImgWindow = popupImgWindow;
+    this._userId = userId;
     this._handleCardClick = handleCardClick;
     this._handleDeleteClick = handleDeleteClick;
     this._handleLikesClick = handleLikesClick;
@@ -10,7 +11,7 @@ export default class Card {
 
   _getTemplate() {
     return document
-        .querySelector(this._catdTemplate)
+        .querySelector(this._cardTemplate)
         .content
         .querySelector('.group__element')
         .cloneNode(true);
@@ -30,21 +31,31 @@ export default class Card {
     quantity.textContent = this._item.likes.length;
 
     // Вкл. Лайки
+    const userId = this._userId;
     const action = this._item.likes.some(function (likes) {
-      return likes._id === "05feda113f169d7c5cb08d1c"; // сравниваем с моим id
+      return likes._id === userId; // сравниваем с моим id
     });
     if (action) like.classList.add("group__vector_active");
 
     // Вкл. Корзину
-    if (this._item.owner._id === "05feda113f169d7c5cb08d1c") {
+    if (this._item.owner._id === this._userId) {
       trash.classList.remove("group__trash_disabled");
     }
-
     // Удаление / Лайк / Попап Картинки
-    trash.addEventListener("click", () => { this._handleDeleteClick(this._card); });
-    like.addEventListener ("click", (evt) => { evt.preventDefault(); this._handleLikesClick(this._card); });
+    trash.addEventListener("click", () => { this._handleDeleteClick(this); }); // прокидываешь в this весь объект карточки
+    like.addEventListener ("click", (evt) => { evt.preventDefault(); this._handleLikesClick(this._card, like); });
     image.addEventListener("click", () => { this._handleCardClick() });
 
     return this._card;
+  }
+
+  calculateLikes(templateCard, likes) {
+    const quantity = templateCard.querySelector(".group__quantity");
+    quantity.textContent = likes.likes.length;
+  }
+
+  removeCard() {
+    this._card.remove();
+    this._card = null;
   }
 }
