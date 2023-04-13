@@ -4,7 +4,8 @@
 .header{border-bottom:1px solid rgba(84,84,84,.7);box-sizing:border-box;margin:45px 200px 0}@media (max-width:1024px){.header{margin:45px 100px 0}}@media (max-width:768px){.header{margin:28px 0 0}}
 .header__logo{background-image:url(bbe2a6eafac19c3d031c.svg);background-repeat:no-repeat;background-size:cover;height:33px;margin-bottom:41px;width:142px}@media (max-width:768px){.header__logo{height:24.4px;margin:0 0 31.6px 27px;width:103.74px}}
 .profile{align-items:center;box-sizing:border-box;display:flex;justify-content:space-between;margin:40px 200px 0}@media (max-width:1024px){.profile{margin:40px 100px 0}}@media (max-width:768px){.profile{flex-direction:column;margin:42px 19px 0}}
-.profile__avatar{border-radius:50%;height:120px;margin:0 26.25px 0 0;-o-object-fit:cover;object-fit:cover;width:120px}@media (max-width:768px){.profile__avatar{margin:0}}
+.profile__avatar{background-image:url(a086f758840ae814ecde.svg);background-position:50%;background-repeat:no-repeat;background-size:25px;border-radius:50%;height:120px;margin:0 26.25px 0 0;-o-object-fit:cover;object-fit:cover;width:120px}@media (max-width:768px){.profile__avatar{margin:0}}
+.profile__image{border-radius:50%;height:120px;-o-object-fit:cover;object-fit:cover;transition:opacity .5s ease-in-out;width:120px}.profile__image:hover{cursor:pointer;opacity:.2}
 .profile__add-button{background-color:inherit;background-image:url(13997fdf54b4cb323817.svg);background-repeat:no-repeat;border:0;cursor:pointer;height:50px;margin-left:20px;min-width:150px;transition:opacity .3s ease}.profile__add-button:hover{opacity:.6}@media (max-width:768px){.profile__add-button{background-image:url(8e041299935e2fbbe15e.svg);margin:32px 0 0;min-width:282px}}
 .profile__info{align-items:center;display:grid;gap:16px 18px;grid-template-columns:1fr 24px;margin-right:auto}@media (max-width:768px){.profile__info{display:flex;flex-direction:column;gap:11px;justify-items:center;margin:22.25px 0 0;position:relative;width:282px}}
 .profile__title{color:#fff;font-size:42px;font-weight:500;line-height:48px;margin:0}@media (max-width:768px){.profile__title{font-size:27px;line-height:33px;max-width:220px}}
@@ -14,11 +15,14 @@
 .group{display:grid;gap:20px 17px;grid-template-columns:repeat(3,1fr);list-style:none;margin:0;padding:0}@media (max-width:480px){.group{grid-template-columns:repeat(1,1fr)}}
 .group__element{background:#fff;border-radius:10px;display:flex;flex-direction:column;overflow:hidden;position:relative}
 .group__trash{background-color:transparent;background-image:url(e3c42771bff3aaa52f76.svg);background-repeat:no-repeat;background-size:cover;border:0;cursor:pointer;height:19px;padding:0;position:absolute;right:20px;top:20px;transition:opacity .3s ease;width:18px}.group__trash:hover{opacity:.6}
+.group__trash_disabled{display:none}
 .group__image{background-color:#000;color:#fff;cursor:pointer;height:282px;-o-object-fit:cover;object-fit:cover}
 .group__figcaption{align-items:center;display:flex;justify-content:space-between;margin:25px 15px 25px 21px}
 .group__title{color:#000;font-size:24px;font-weight:900;line-height:29px;margin:0;max-width:80%}
 .group__vector{background-color:transparent;background-image:url(1ad06e85f169668a1f36.svg);background-repeat:no-repeat;background-size:cover;border:0;cursor:pointer;height:19px;padding:0;transition:opacity .3s ease;width:22px}.group__vector:hover{opacity:.5}
 .group__vector_active{background-color:transparent;background-image:url(35948469632d0421d697.svg);background-repeat:no-repeat;background-size:cover;border:0;cursor:pointer;height:19px;padding:0;width:22px}
+.group__likes{align-items:center;display:flex;flex-direction:column}
+.group__quantity{font-size:13px;font-weight:400;line-height:16px;padding-top:3px}
 .block{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .footer{margin:67px 200px 60px}@media (max-width:1024px){.footer{margin:67px 100px 0}}@media (max-width:768px){.footer{margin:48px 19px 36px}}
 .footer__copyright{color:#545454;font-size:18px;font-weight:400;line-height:22px;margin:0}@media (max-width:768px){.footer__copyright{font-size:14px;line-height:17px}}
