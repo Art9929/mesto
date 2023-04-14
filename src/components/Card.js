@@ -21,21 +21,21 @@ export default class Card {
     this._card = this._getTemplate();
     // клонируем содержимое тега template
     const image = this._card.querySelector(".group__image");
-    const like = this._card.querySelector(".group__vector");
+    this._like = this._card.querySelector(".group__vector");
     const trash = this._card.querySelector(".group__trash");
-    const quantity = this._card.querySelector(".group__quantity");
+    this._quantity = this._card.querySelector(".group__quantity");
     // наполняем содержимым
     this._card.querySelector(".group__title").textContent = this._item.name;
     image.src = this._item.link;
     image.alt = this._item.name;
-    quantity.textContent = this._item.likes.length;
+    this._quantity.textContent = this._item.likes.length;
 
     // Вкл. Лайки
     const userId = this._userId;
     const action = this._item.likes.some(function (likes) {
       return likes._id === userId; // сравниваем с моим id
     });
-    if (action) like.classList.add("group__vector_active");
+    if (action) this._like.classList.add("group__vector_active");
 
     // Вкл. Корзину
     if (this._item.owner._id === this._userId) {
@@ -43,15 +43,17 @@ export default class Card {
     }
     // Удаление / Лайк / Попап Картинки
     trash.addEventListener("click", () => { this._handleDeleteClick(this); }); // прокидываешь в this весь объект карточки
-    like.addEventListener ("click", (evt) => { evt.preventDefault(); this._handleLikesClick(this._card, like); });
+    this._like.addEventListener ("click", (evt) => { evt.preventDefault(); this._handleLikesClick(this); });
     image.addEventListener("click", () => { this._handleCardClick() });
 
     return this._card;
   }
 
-  calculateLikes(templateCard, likes) {
-    const quantity = templateCard.querySelector(".group__quantity");
-    quantity.textContent = likes.likes.length;
+  setLikeStatus(data, templateLike) {
+    this._item.likes = data.likes;
+    this._quantity.textContent = data.likes.length;
+
+    templateLike ? this._like.classList.add("group__vector_active") : this._like.classList.remove("group__vector_active");
   }
 
   removeCard() {
