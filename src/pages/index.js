@@ -48,6 +48,7 @@ Promise.all([                 //в Promise.all передаем массив п�
 api.profile(),
 api.getInitialCards() ])
   .then(([profile, initialCards])=>{    //попадаем сюда, когда оба промиса будут выполнены, деструктурируем ответ
+// Берем ID
   userId = profile._id;
 // Загрузка информации о себе
   userInfo.setUserInfo(profile)
@@ -68,13 +69,59 @@ formValidatorAvatar.enableValidation(); // class formValidator
 
 // Информация о пользователе
 const userInfo = new UserInfo( titleAutor, subtitleAutor, avatar ); // Данные для Edit
-// Попапы Edit, Add, Avatar, Картинки, Удаления
-const popupEdit = new PopupWithForm(".popup_template_edit")
-const popupAdd = new PopupWithForm(".popup_template_add")
-const popupAvatar = new PopupWithForm(".popup_template_avatar")
+// ПОПАПЫ Картинки, Удаления, Edit, Add, Avatar,
 const popupImage = new PopupWithImage(".popup_template_img");
 const popupDeleteCard = new PopupDeleteCard(".popup_template_trash")
-popupDeleteCard.setEventListeners();
+
+// Submit Edit btn
+const popupEdit = new PopupWithForm(".popup_template_edit", { api: (item) =>  {
+    api.editProfile(item)
+    .then((res) => {
+      // РЕНДЕРИНГ О СЕБЕ
+      userInfo.setUserInfo(res);
+      popupEdit.close();
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    })
+    .finally(() => {
+      popupEdit.renderLoading(false)
+    })
+  }
+});
+
+// Submit Add btn
+const popupAdd = new PopupWithForm(".popup_template_add", { api: (item) => {
+    api.addNewCard(item)
+    .then((res) => {
+      // РЕНДЕРИНГ КАРТОЧКИ
+      list.addItem(renderCard(res))
+      popupAdd.close();
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    })
+    .finally(() => {
+      popupAdd.renderLoading(false)
+    })
+  }
+});
+
+// Обработка и закрытие Попапа Аватарки
+const popupAvatar = new PopupWithForm(".popup_template_avatar", { api: (item) => {
+    api.changeAvatar(item)
+    .then((res) => {
+      userInfo.setUserInfo(res);
+      popupAvatar.close();
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    })
+    .finally(() => {
+      popupAvatar.renderLoading(false)
+    })
+  }
+});
 
 // card для рендеринга и submit
 const renderCard = (item) => {
@@ -105,24 +152,23 @@ const renderCard = (item) => {
       })
     },
 
-    handleLikesClick: (templateCard, like) => {
+    handleLikesClick: (card) => {
+      item = card._item
       const action = item.likes.some(function (likes) {
         return likes._id === userId; // сравниваем с моим id
     });
       if (action === false) {
       api.addLike(item._id, item.likes) // Добавляем Лайк
-        .then((likes) => {
-            like.classList.add("group__vector_active");
-            card.calculateLikes(templateCard, likes)
+        .then((data) => {
+            card.setLikeStatus(data, true)
         })
         .catch((err) => {
           console.log(err); // выведем ошибку в консоль
         });
     } else {
       api.deleteLike(item._id, item.likes) // Удаляем Лайк
-        .then((likes) => {
-            like.classList.remove("group__vector_active");
-            card.calculateLikes(templateCard, likes)
+        .then((data) => {
+            card.setLikeStatus(data, false)
         })
         .catch((err) => {
           console.log(err); // выведем ошибку в консоль
@@ -139,6 +185,7 @@ const list = new Section({
     list.addItem(renderCard(item));
   }
   }, ".group");
+
 
 // Открытие попапа Edit btn
 popupEditBtnOpen.addEventListener("click", () => {
@@ -161,33 +208,10 @@ avatar.addEventListener("click", () => {
 
 
 // SETEVENTLISTENERS
-// Submit Edit btn
-popupEdit.setEventListeners( {
-  api: (item) => api.editProfile(item)
-  .then((res) => {
-    // РЕНДЕРИНГ О СЕБЕ
-    userInfo.setUserInfo(res);
-  })
-});
-
-// Submit Add btn
-popupAdd.setEventListeners({
-  api: (item) => api.addNewCard(item)
-  .then((res) => {
-    // РЕНДЕРИНГ КАРТОЧКИ
-    list.addItem(renderCard(res))
-  })
-});
-
-// Обработка и закрытие Попапа Аватарки
-popupAvatar.setEventListeners( {
-  api: (item) => api.changeAvatar(item)
-  .then((res) => {
-    avatar.src = res.avatar;
-  })
-});
-
-// Обработка и закрытие Попапа Картинки
+popupEdit.setEventListeners();
+popupAdd.setEventListeners();
+popupAvatar.setEventListeners();
 popupImage.setEventListeners();
+popupDeleteCard.setEventListeners();
 
 
